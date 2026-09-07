@@ -1,0 +1,33 @@
+{
+  "name": "anrcas-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A.N. Radhakrishnan College of Arts and Science — official website",
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node scripts/generate-sitemap.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "smoke": "node scripts/smoke-render.mjs"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.22.5",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.469.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "resend": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.0.5"
+  }
+}

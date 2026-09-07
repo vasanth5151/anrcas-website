@@ -131,7 +131,7 @@ function Founders() {
                 aria-hidden="true"
               />
 
-              <div className="relative mx-auto h-[200px] w-[200px] overflow-hidden rounded-full ring-4 ring-white shadow-card sm:h-[224px] sm:w-[224px]">
+              <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-full ring-4 ring-white shadow-card sm:h-[264px] sm:w-[264px]">
                 <Portrait name={person.name} photo={person.photo} />
               </div>
 
@@ -250,9 +250,9 @@ function Authorities() {
               className="grid gap-8 rounded-[26px] border border-white/10 bg-white/[0.035] p-7 transition-colors duration-500 hover:border-brand-400/40 sm:p-9 lg:grid-cols-12 lg:gap-12"
             >
               {/* Identity rail, alternates side so the column does not read as a list. */}
-              <div className={cx('lg:col-span-3', index % 2 ? 'lg:order-2' : 'lg:order-1')}>
+              <div className={cx('lg:col-span-4', index % 2 ? 'lg:order-2' : 'lg:order-1')}>
                 <div className="flex items-center gap-4 lg:flex-col lg:items-start">
-                  <div className="h-[120px] w-[120px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-white/15 lg:h-[200px] lg:w-[200px]">
+                  <div className="h-[160px] w-[160px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-white/15 sm:h-[200px] sm:w-[200px] lg:h-[280px] lg:w-[280px]">
                     <Portrait name={person.name} photo={person.photo} tone="dark" />
                   </div>
                   <div className="lg:mt-5">
@@ -264,7 +264,7 @@ function Authorities() {
                 </div>
               </div>
 
-              <div className={cx('lg:col-span-9', index % 2 ? 'lg:order-1' : 'lg:order-2')}>
+              <div className={cx('lg:col-span-8', index % 2 ? 'lg:order-1' : 'lg:order-2')}>
                 <Icon name="Quote" className="h-7 w-7 text-brand-400/60" strokeWidth={1.5} aria-hidden="true" />
                 <p className="mt-4 text-[15px] font-medium text-white">{person.salutation}</p>
                 {person.message.map((paragraph) => (

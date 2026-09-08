@@ -7,10 +7,10 @@ import { cx } from '../../lib/cx'
  */
 export default function PortableText({ value, className }) {
   if (!value) return null
-  const blocks = Array.isArray(value) ? value : [value]
+  const blocks = Array.isArray(value) ? value : splitPlainText(value)
 
   return (
-    <div className={cx('flex flex-col gap-6', className)}>
+    <div className={cx('flex flex-col gap-7', className)}>
       {blocks.map((block, index) => (
         <Block key={block?._key ?? index} block={block} />
       ))}
@@ -18,9 +18,16 @@ export default function PortableText({ value, className }) {
   )
 }
 
+function splitPlainText(value) {
+  return String(value)
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean)
+}
+
 function Block({ block }) {
   if (typeof block === 'string') {
-    return <p className="text-[16px] leading-[1.75] text-ink-600">{block}</p>
+    return <p className="text-[17px] leading-[1.85] text-ink-600">{block}</p>
   }
 
   if (block?._type === 'image' && block.asset?.url) {
@@ -67,9 +74,9 @@ function Block({ block }) {
 
   switch (block.style) {
     case 'h2':
-      return <h2 className="mt-4 text-[26px] font-semibold tracking-tight text-ink-900">{text}</h2>
+      return <h2 className="mt-5 text-[28px] font-bold leading-tight tracking-tight text-ink-900">{text}</h2>
     case 'h3':
-      return <h3 className="mt-2 text-[21px] font-semibold tracking-tight text-ink-900">{text}</h3>
+      return <h3 className="mt-3 text-[22px] font-bold leading-tight tracking-tight text-ink-900">{text}</h3>
     case 'blockquote':
       return (
         <blockquote className="border-l-2 border-brand-500 pl-6 text-[17px] italic leading-relaxed text-ink-700">
@@ -82,6 +89,6 @@ function Block({ block }) {
           <li className="ml-5 list-disc text-[16px] leading-[1.75] text-ink-600 marker:text-brand-500">{text}</li>
         )
       }
-      return <p className="text-[16px] leading-[1.75] text-ink-600">{text}</p>
+      return <p className="text-[17px] leading-[1.85] text-ink-600">{text}</p>
   }
 }

@@ -123,7 +123,7 @@ export default function BlogPostPage() {
               />
             </motion.div>
 
-            <div className="mx-auto mt-14 max-w-[720px]">
+            <div className="mx-auto mt-14 max-w-[820px]">
               <PortableText value={post.body} />
 
               <div className="mt-14 flex flex-col gap-4 border-t border-ink-100 pt-8 sm:flex-row sm:items-center sm:justify-between">

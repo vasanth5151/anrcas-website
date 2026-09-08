@@ -1,5 +1,6 @@
 const projectId = import.meta.env.VITE_SANITY_PROJECT_ID
 const dataset = import.meta.env.VITE_SANITY_DATASET || 'production'
+const siteId = import.meta.env.VITE_SANITY_SITE_ID || 'anrcas'
 const apiVersion = import.meta.env.VITE_SANITY_API_VERSION || '2024-10-01'
 
 /**
@@ -9,7 +10,7 @@ const apiVersion = import.meta.env.VITE_SANITY_API_VERSION || '2024-10-01'
  */
 export const isSanityConfigured = Boolean(projectId)
 
-export const sanityConfig = { projectId, dataset, apiVersion }
+export const sanityConfig = { projectId, dataset, siteId, apiVersion }
 
 let clientPromise = null
 

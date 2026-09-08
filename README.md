@@ -41,6 +41,7 @@ Copy `.env.example` to `.env`. Two groups, and the distinction matters:
 ```
 VITE_SANITY_PROJECT_ID=
 VITE_SANITY_DATASET=production
+VITE_SANITY_SITE_ID=anrcas
 VITE_SANITY_API_VERSION=2024-10-01
 VITE_SITE_URL=https://www.anrcas.edu.in
 ```

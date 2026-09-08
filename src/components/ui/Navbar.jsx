@@ -158,20 +158,21 @@ function IdentityRow() {
           />
         </div>
 
-        {/* Group identity, the parent institution's mark sits on the right. */}
         <a
           href="https://mat.org.in/"
           target="_blank"
           rel="noreferrer noopener"
-          className="ml-auto hidden shrink-0 items-center border-l border-ink-100 pl-6 transition-opacity duration-300 hover:opacity-80 sm:flex lg:pl-10"
+          aria-label="Meenakshi Group of Institutions"
+          className="ml-auto flex shrink-0 items-center border-l border-ink-100 pl-3 transition-opacity duration-300 hover:opacity-80 sm:pl-6 lg:pl-10"
         >
           <img
             src={groupLogo}
-            alt="Meenakshi Group of Institutions, K.K. Nagar, Chennai"
+            alt="Meenakshi Group of Institutions"
             decoding="async"
-            className="h-12 w-auto lg:h-16"
+            className="h-10 w-auto max-w-[100px] sm:h-14 sm:max-w-none lg:h-20"
           />
         </a>
+
       </div>
     </div>
   )
@@ -488,14 +489,6 @@ function MobileMenu({ onClose }) {
             </span>
           </div>
 
-          <a
-            href="https://www.meenakshigroup.com"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="mt-5 flex items-center gap-3 border-t border-ink-100 pt-4"
-          >
-            <img src={groupLogo} alt="Meenakshi Group of Institutions" className="h-10 w-auto" decoding="async" />
-          </a>
         </div>
       </motion.div>
     </motion.div>

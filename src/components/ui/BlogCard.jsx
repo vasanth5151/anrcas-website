@@ -40,7 +40,7 @@ export default function BlogCard({ post, variant = 'default', className }) {
 
         <h3
           className={cx(
-            'mt-3 font-semibold leading-snug tracking-tight text-ink-900 transition-colors duration-300 group-hover:text-brand-600',
+            'mt-3 font-bold leading-snug tracking-tight text-ink-900 transition-colors duration-300 group-hover:text-brand-600',
             featured ? 'text-[24px] sm:text-[28px]' : 'text-[18px]',
           )}
         >

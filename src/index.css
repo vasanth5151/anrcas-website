@@ -73,7 +73,7 @@
   }
 
   .display {
-    @apply font-semibold leading-[1.03] tracking-tightest;
+    @apply font-bold leading-[1.03] tracking-tightest;
   }
 
   .lead {

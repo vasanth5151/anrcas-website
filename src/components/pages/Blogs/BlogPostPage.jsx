@@ -38,7 +38,7 @@ export default function BlogPostPage() {
   }
 
   const { post, related } = data
-  const heroImage = urlForImage(post.mainImage, { width: 1600 }) || blogFallback
+  const heroImage = urlForImage(post.mainImage, { width: 1000 }) || blogFallback
   const minutes = post.readingTime ?? readingTime(post.body)
   const trail = [
     { label: 'Blogs', href: '/blogs' },
@@ -76,7 +76,7 @@ export default function BlogPostPage() {
                 </motion.span>
               ) : null}
 
-              <motion.h1 variants={fadeUp} className="display mt-6 text-[32px] sm:text-[44px] lg:text-[52px]">
+              <motion.h1 variants={fadeUp} className="display mt-6 font-bold text-[32px] text-ink-900 sm:text-[44px] lg:text-[52px]">
                 {post.title}
               </motion.h1>
 
@@ -109,35 +109,89 @@ export default function BlogPostPage() {
           </div>
         </header>
 
-        {/* Body */}
-        <div className="bg-white pb-20 pt-12 sm:pt-16">
+        {/* Body & Sidebar */}
+        <div className="bg-white pb-20 pt-10 sm:pt-14">
           <div className="shell">
-            <motion.div variants={fadeUp} initial="hidden" animate="show">
-              <SmartImage
-                src={heroImage}
-                alt={post.mainImage?.alt || post.title}
-                ratio="video"
-                priority
-                className="rounded-[24px] border border-ink-100"
-                sizes="(max-width: 1024px) 92vw, 1100px"
-              />
-            </motion.div>
+            <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+              {/* Main Article Content (Left) */}
+              <div className="lg:col-span-8">
+                <motion.div variants={fadeUp} initial="hidden" animate="show">
+                  <SmartImage
+                    src={heroImage}
+                    alt={post.mainImage?.alt || post.title}
+                    ratio="wide"
+                    priority
+                    className="max-h-[420px] w-full rounded-[20px] border border-ink-100 shadow-sm"
+                    sizes="(max-width: 1024px) 100vw, 800px"
+                  />
+                </motion.div>
 
-            <div className="mx-auto mt-14 max-w-[820px]">
-              <PortableText value={post.body} />
+                <div className="mt-10">
+                  <PortableText value={post.body} />
 
-              <div className="mt-14 flex flex-col gap-4 border-t border-ink-100 pt-8 sm:flex-row sm:items-center sm:justify-between">
-                <Link
-                  to="/blogs"
-                  className="inline-flex items-center gap-2 text-[14px] font-medium text-brand-600 hover:text-brand-700"
-                >
-                  <ArrowLeft className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
-                  All news &amp; insights
-                </Link>
-                <Button to="/admission" variant="outline" size="sm" icon>
-                  Admission enquiry
-                </Button>
+                  <div className="mt-14 flex flex-col gap-4 border-t border-ink-100 pt-8 sm:flex-row sm:items-center sm:justify-between">
+                    <Link
+                      to="/blogs"
+                      className="inline-flex items-center gap-2 text-[14px] font-medium text-brand-600 hover:text-brand-700"
+                    >
+                      <ArrowLeft className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
+                      All news &amp; insights
+                    </Link>
+                    <Button to="/admission" variant="outline" size="sm" icon>
+                      Admission enquiry
+                    </Button>
+                  </div>
+                </div>
               </div>
+
+              {/* Right Sidebar Column - Recent Blogs */}
+              <aside className="lg:col-span-4 lg:sticky lg:top-28">
+                <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm sm:p-7">
+                  <h3 className="border-b border-ink-100 pb-4 text-[18px] font-bold tracking-tight text-ink-900">
+                    Recent Blogs
+                  </h3>
+
+                  <div className="mt-6 flex flex-col gap-5">
+                    {related?.slice(0, 4).map((item) => {
+                      const itemImg = urlForImage(item.mainImage, { width: 300 }) || blogFallback
+                      return (
+                        <article key={item._id} className="group flex gap-3.5 items-start">
+                          <Link
+                            to={`/blogs/${item.slug}`}
+                            className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl border border-ink-100 bg-ink-100"
+                          >
+                            <img
+                              src={itemImg}
+                              alt={item.title}
+                              className="h-full w-full object-cover transition-transform duration-500 ease-premium group-hover:scale-105"
+                            />
+                          </Link>
+                          <div className="flex-1 min-w-0">
+                            {item.category ? (
+                              <span className="text-[10.5px] font-semibold uppercase tracking-wider text-brand-600">
+                                {item.category}
+                              </span>
+                            ) : null}
+                            <h4 className="mt-0.5 text-[13.5px] font-bold leading-snug text-ink-900 transition-colors group-hover:text-brand-600 line-clamp-2">
+                              <Link to={`/blogs/${item.slug}`}>{item.title}</Link>
+                            </h4>
+                            <p className="mt-1 flex items-center gap-1.5 text-[11.5px] text-ink-400">
+                              <CalendarDays className="h-3 w-3 text-brand-500" />
+                              <time dateTime={item.publishedAt}>{formatDate(item.publishedAt)}</time>
+                            </p>
+                          </div>
+                        </article>
+                      )
+                    })}
+                  </div>
+
+                  <div className="mt-7 border-t border-ink-100 pt-5">
+                    <Button to="/blogs" variant="dark" size="sm" className="w-full justify-center" icon>
+                      Browse all blogs
+                    </Button>
+                  </div>
+                </div>
+              </aside>
             </div>
           </div>
         </div>

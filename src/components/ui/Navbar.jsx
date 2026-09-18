@@ -40,6 +40,7 @@ export default function Navbar() {
   }, [pathname])
 
   const collapsed = scrolled && !mobileOpen
+  const megaItem = navigation.find((item) => item.mega && item.label === openMenu)
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -104,6 +105,25 @@ export default function Navbar() {
               />
             ))}
           </ul>
+
+          {/* Mega panels are anchored to the nav bar itself (not the triggering
+              item) so a wide panel never runs past the right edge of the viewport
+              regardless of where its trigger sits in the menu. */}
+          <AnimatePresence>
+            {megaItem ? (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 6 }}
+                transition={{ duration: 0.28, ease }}
+                className="absolute left-1/2 top-full w-[min(860px,calc(100vw-2.5rem))] -translate-x-1/2 pt-3"
+              >
+                <div className="overflow-hidden rounded-2xl border border-ink-100 bg-white p-2 shadow-[0_28px_70px_-28px_rgba(16,24,40,.35)]">
+                  <MegaPanel item={megaItem} />
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
 
           <div className="ml-auto flex items-center gap-2">
             <Button
@@ -255,20 +275,19 @@ function NavItem({ item, open, onOpen, onClose }) {
         </NavLink>
       )}
 
+      {/* Mega panels render once at the nav level (see <Navbar />) so their width
+          never overflows the viewport based on this item's position. */}
       <AnimatePresence>
-        {hasPanel && open ? (
+        {hasPanel && open && !item.mega ? (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.28, ease }}
-            className={cx(
-              'absolute top-full pt-3',
-              item.mega ? 'left-1/2 w-[860px] -translate-x-1/2' : 'left-0 w-[228px]',
-            )}
+            className="absolute left-0 top-full w-[228px] pt-3"
           >
             <div className="overflow-hidden rounded-2xl border border-ink-100 bg-white p-2 shadow-[0_28px_70px_-28px_rgba(16,24,40,.35)]">
-              {item.mega ? <MegaPanel item={item} /> : <SimplePanel item={item} />}
+              <SimplePanel item={item} />
             </div>
           </motion.div>
         ) : null}

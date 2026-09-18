@@ -17,7 +17,9 @@ const postFields = `
 
 export const queries = {
   posts: `*[_type in ["blogPost", "schoolNews"] && site == $siteId] | order(coalesce(publishedAt, date) desc) [$from...$to] { ${postFields} }`,
-  featured: `*[_type in ["blogPost", "schoolNews"] && site == $siteId] | order(coalesce(publishedAt, date) desc) [0...$limit] { ${postFields} }`,
+  // The homepage "Latest News" strip pulls every Notice Board / Latest News
+  // entry, newest first, so a blog post never crowds out a campus announcement.
+  news: `*[_type == "schoolNews" && site == $siteId] | order(coalesce(publishedAt, date) desc) { ${postFields} }`,
   bySlug: `*[_type in ["blogPost", "schoolNews"] && site == $siteId && (_id == $slug || slug.current == $slug)][0] { ${postFields}, body }`,
   related: `*[_type in ["blogPost", "schoolNews"] && site == $siteId && (_id != $slug && slug.current != $slug)] | order(coalesce(publishedAt, date) desc) [0...3] { ${postFields} }`,
   categories: `array::unique(*[_type in ["blogPost", "schoolNews"] && site == $siteId].category)`,
@@ -42,8 +44,20 @@ export async function fetchPosts({ limit = 12, offset = 0 } = {}) {
   return { posts: posts ?? [], isMock: false }
 }
 
-export async function fetchFeaturedPosts(limit = 3) {
-  return fetchPosts({ limit })
+/** Every campus notice / announcement, newest first, for the homepage "Latest News" strip. */
+export async function fetchNews() {
+  if (!isSanityConfigured) {
+    return { posts: mockSorted(), isMock: true }
+  }
+
+  const client = await getSanityClient()
+  const posts = await client.fetch(queries.news, { siteId: sanityConfig.siteId })
+
+  // No notices published yet — fall back rather than showing an empty strip.
+  if (!posts?.length) {
+    return { posts: mockSorted(), isMock: true }
+  }
+  return { posts, isMock: false }
 }
 
 /** A single post plus three related items, for /blogs/:slug. */

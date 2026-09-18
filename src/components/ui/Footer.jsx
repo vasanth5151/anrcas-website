@@ -39,17 +39,7 @@ export default function Footer() {
               {site.tagline}
             </p>
 
-            <div className="mt-7 inline-flex items-center gap-3 rounded-xl bg-white px-4 py-3">
-              <img
-                src={groupLogo}
-                alt="Meenakshi Group of Institutions, K.K. Nagar, Chennai"
-                width={320}
-                height={96}
-                loading="lazy"
-                decoding="async"
-                className="h-8 w-auto"
-              />
-            </div>
+            
 
             <div className="mt-7 flex items-center gap-2.5">
               {site.socials.map((social) => (

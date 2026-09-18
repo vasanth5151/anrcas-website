@@ -7,20 +7,17 @@ import { fadeUp, stagger, viewportOnce } from '../../../lib/motion'
 import { fetchPosts } from '../../../lib/sanity/queries'
 import { useSanity } from '../../../lib/sanity/useSanity'
 
-/** The three newest posts already head the page in <LatestNews />. */
-const SKIP = 3
-const SHOW = 6
+const SHOW = 3
 
 /**
- * Secondary blog grid. It continues where the Latest News strip stops, so the
- * homepage never shows the same post twice. Content is managed in Sanity and
- * falls back to the mock posts.
+ * Secondary blog grid, shown below the <LatestNews /> notices strip. Content
+ * is managed in Sanity and falls back to the mock posts.
  */
 export default function BlogsGrid() {
-  const { data, loading, error } = useSanity(() => fetchPosts({ limit: SKIP + SHOW }), [])
-  const posts = (data?.posts ?? []).slice(SKIP)
+  const { data, loading, error } = useSanity(() => fetchPosts({ limit: SHOW }), [])
+  const posts = data?.posts ?? []
 
-  // Nothing beyond the featured three yet, stay out of the way entirely.
+  // Nothing published yet, stay out of the way entirely.
   if (error || (!loading && !posts.length)) return null
 
   return (

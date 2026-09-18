@@ -15,6 +15,8 @@ import admissionHero from '../../../assets/facilities/reception1.webp'
 
 const trail = [{ label: 'Admission', href: '/admission' }]
 
+const enrollFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSewVRIAgSPVA_0cJKJwT6Cq2ddKT2SxIJthENHoJK4nSxqZMw/viewform'
+
 const steps = [
   {
     title: 'Submit an enquiry',
@@ -172,9 +174,14 @@ function Courses() {
           title="Courses offered"
           description="A wide stream of undergraduate courses, with a postgraduate pathway in commerce. Sanctioned strength is shown against each."
           action={
-            <Button to="/programmes" variant="outline" icon>
-              View courses
-            </Button>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button to="/programmes" variant="outline" icon>
+                View courses
+              </Button>
+              <Button href={enrollFormUrl} target="_blank" rel="noreferrer noopener" variant="primary" icon>
+                Enroll Now
+              </Button>
+            </div>
           }
         />
 
